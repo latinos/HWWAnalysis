@@ -1289,9 +1289,15 @@ class ShapeFactory:
         #weights['ggH_s']              = self._stdWgt+'*2.739*(((njet==0) * (1.1986-4.9341/sqrt(mWW))) + ((njet==1) * (0.8415+68.0300/mWW)) + ((njet>=2) * (0.7655+165.6779/mWW)))' # +'*((dataset == 37) - (dataset == 37) + (dataset == 37))'
         #weights['ggH_b']              = self._stdWgt+'*2.739*(((njet==0) * (1.1986-4.9341/sqrt(mWW))) + ((njet==1) * (0.8415+68.0300/mWW)) + ((njet>=2) * (0.7655+165.6779/mWW)))' # +'*((dataset == 37) - (dataset == 37) + (dataset == 37))'
 
-        weights['ggH_sbi']            = self._stdWgt+'*2.739*(((njet==0) * (1.1983-4.9696/sqrt(mWW))) + ((njet==1) * (0.6711+7.0075/sqrt(mWW))) + ((njet>=2) * (0.3794+16.4944/sqrt(mWW))))'
-        weights['ggH_s']              = self._stdWgt+'*2.739*(((njet==0) * (1.1983-4.9696/sqrt(mWW))) + ((njet==1) * (0.6711+7.0075/sqrt(mWW))) + ((njet>=2) * (0.3794+16.4944/sqrt(mWW))))'
-        weights['ggH_b']              = self._stdWgt+'*2.739*(((njet==0) * (1.1983-4.9696/sqrt(mWW))) + ((njet==1) * (0.6711+7.0075/sqrt(mWW))) + ((njet>=2) * (0.3794+16.4944/sqrt(mWW))))'
+        # 1/sqrt(x) functional form
+        #weights['ggH_sbi']            = self._stdWgt+'*2.739*(((njet==0) * (1.1983-4.9696/sqrt(mWW))) + ((njet==1) * (0.6711+7.0075/sqrt(mWW))) + ((njet>=2) * (0.3794+16.4944/sqrt(mWW))))'
+        #weights['ggH_s']              = self._stdWgt+'*2.739*(((njet==0) * (1.1983-4.9696/sqrt(mWW))) + ((njet==1) * (0.6711+7.0075/sqrt(mWW))) + ((njet>=2) * (0.3794+16.4944/sqrt(mWW))))'
+        #weights['ggH_b']              = self._stdWgt+'*2.739*(((njet==0) * (1.1983-4.9696/sqrt(mWW))) + ((njet==1) * (0.6711+7.0075/sqrt(mWW))) + ((njet>=2) * (0.3794+16.4944/sqrt(mWW))))'
+
+        # 1/x functional form
+        weights['ggH_sbi']            = self._stdWgt+'*2.739*(((njet==0) * (1.0753-48.9352/mWW)) + ((njet==1) * (0.8457+67.5294/mWW)) + ((njet>=2) * (0.7777+161.9353/mWW)))'
+        weights['ggH_s']              = self._stdWgt+'*2.739*(((njet==0) * (1.0753-48.9352/mWW)) + ((njet==1) * (0.8457+67.5294/mWW)) + ((njet>=2) * (0.7777+161.9353/mWW)))'
+        weights['ggH_b']              = self._stdWgt+'*2.739*(((njet==0) * (1.0753-48.9352/mWW)) + ((njet==1) * (0.8457+67.5294/mWW)) + ((njet>=2) * (0.7777+161.9353/mWW)))'
 
         #integral = 19.7036
         #integral = 7.19278
@@ -1340,26 +1346,48 @@ class ShapeFactory:
                                                                 #(njet==2) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(0.7655+165.6779/  (200)) \
                                                                           #+ ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.7655+165.6779/(400))) )'
 
-          weights['ggH_sbi']            = self._stdWgt+'*2.739*((njet==0) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(1.1983-4.9696/sqrt(200)) \
-                                                                           + ((dataset == 256) || (dataset == 266) || (dataset == 271))*(1.1983-4.9696/sqrt(400))) + \
-                                                                (njet==1) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(0.6711+7.0075/sqrt(200)) \
-                                                                          + ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.6711+7.0075/sqrt(400))) + \
-                                                                (njet==2) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(0.3794+16.4944/sqrt(200)) \
-                                                                          + ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.3794+16.4944/sqrt(400))) )'
+          #weights['ggH_sbi']            = self._stdWgt+'*2.739*((njet==0) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(1.1983-4.9696/sqrt(200)) \
+                                                                           #+ ((dataset == 256) || (dataset == 266) || (dataset == 271))*(1.1983-4.9696/sqrt(400))) + \
+                                                                #(njet==1) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(0.6711+7.0075/sqrt(200)) \
+                                                                          #+ ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.6711+7.0075/sqrt(400))) + \
+                                                                #(njet==2) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(0.3794+16.4944/sqrt(200)) \
+                                                                          #+ ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.3794+16.4944/sqrt(400))) )'
 
-          weights['ggH_s']              = self._stdWgt+'*2.739*((njet==0) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(1.1983-4.9696/sqrt(200)) \
-                                                                           + ((dataset == 256) || (dataset == 266) || (dataset == 271))*(1.1983-4.9696/sqrt(400))) + \
-                                                                (njet==1) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(0.6711+7.0075/sqrt(200)) \
-                                                                          + ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.6711+7.0075/sqrt(400))) + \
-                                                                (njet==2) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(0.3794+16.4944/sqrt(200)) \
-                                                                          + ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.3794+16.4944/sqrt(400))) )'
+          #weights['ggH_s']              = self._stdWgt+'*2.739*((njet==0) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(1.1983-4.9696/sqrt(200)) \
+                                                                           #+ ((dataset == 256) || (dataset == 266) || (dataset == 271))*(1.1983-4.9696/sqrt(400))) + \
+                                                                #(njet==1) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(0.6711+7.0075/sqrt(200)) \
+                                                                          #+ ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.6711+7.0075/sqrt(400))) + \
+                                                                #(njet==2) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(0.3794+16.4944/sqrt(200)) \
+                                                                          #+ ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.3794+16.4944/sqrt(400))) )'
 
-          weights['ggH_b']            = self._stdWgt+'*2.739*((njet==0) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(1.1983-4.9696/sqrt(200)) \
-                                                                           + ((dataset == 256) || (dataset == 266) || (dataset == 271))*(1.1983-4.9696/sqrt(400))) + \
-                                                                (njet==1) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(0.6711+7.0075/sqrt(200)) \
-                                                                          + ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.6711+7.0075/sqrt(400))) + \
-                                                                (njet==2) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(0.3794+16.4944/sqrt(200)) \
-                                                                          + ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.3794+16.4944/sqrt(400))) )'
+          #weights['ggH_b']            = self._stdWgt+'*2.739*((njet==0) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(1.1983-4.9696/sqrt(200)) \
+                                                                           #+ ((dataset == 256) || (dataset == 266) || (dataset == 271))*(1.1983-4.9696/sqrt(400))) + \
+                                                                #(njet==1) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(0.6711+7.0075/sqrt(200)) \
+                                                                          #+ ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.6711+7.0075/sqrt(400))) + \
+                                                                #(njet==2) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(0.3794+16.4944/sqrt(200)) \
+                                                                          #+ ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.3794+16.4944/sqrt(400))) )'
+
+
+          weights['ggH_sbi']            = self._stdWgt+'*2.739*((njet==0) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(1.0753-48.9352/200) \
+                                                                           + ((dataset == 256) || (dataset == 266) || (dataset == 271))*(1.0753-48.9352/400)) + \
+                                                                (njet==1) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(0.8457+67.5294/200) \
+                                                                          + ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.8457+67.5294/400)) + \
+                                                                (njet==2) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(0.7777+161.9353/200) \
+                                                                          + ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.7777+161.9353/400)) )'
+
+          weights['ggH_s']              = self._stdWgt+'*2.739*((njet==0) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(1.0753-48.9352/200) \
+                                                                           + ((dataset == 256) || (dataset == 266) || (dataset == 271))*(1.0753-48.9352/400)) + \
+                                                                (njet==1) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(0.8457+67.5294/200) \
+                                                                          + ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.8457+67.5294/400)) + \
+                                                                (njet==2) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(0.7777+161.9353/200) \
+                                                                          + ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.7777+161.9353/400)) )'
+
+          weights['ggH_b']            = self._stdWgt+'*2.739*((njet==0) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(1.0753-48.9352/200) \
+                                                                           + ((dataset == 256) || (dataset == 266) || (dataset == 271))*(1.0753-48.9352/400)) + \
+                                                                (njet==1) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(0.8457+67.5294/200) \
+                                                                          + ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.8457+67.5294/400)) + \
+                                                                (njet==2) * (((dataset == 253) || (dataset == 263) || (dataset == 270))*(0.7777+161.9353/200) \
+                                                                          + ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.7777+161.9353/400)) )'
 
 
         if ("Hwidth" in sel) :
