@@ -240,6 +240,8 @@ def getCommonSysts(mass,channel,jets,qqWWfromData,shape,options,suffix,isssactiv
         #nuisances['QCDscale_ggWW_2jet'] = [ ['lnN'], {'ggH_sbi': 1.21, 'ggH_b': 1.21, 'ggH_s': 1.21}]
         nuisances['QCDscale_ggWW_offshell2in'] = [ ['lnN'], {'ggH_sbi': 1.51302, 'ggH_b': 1.51302, 'ggH_s': 1.51302}]
 
+      nuisances['QCDscale_qqWW_offshell']    = [ ['lnN'], {'qqH_sbi': 1.12,  'qqH_b': 1.12,  'qqH_s': 1.12}]  # using comparison phantom <-> powheg for central jet veto
+
       #QCDscale_ggH     1.75158    -          -      << with "YR" uncertainty --> NNLO ~ 15%
       #QCDscale_ggH1in  0.796502   0.676083   -
       #QCDscale_ggH2in  -          0.996433   1.51302
