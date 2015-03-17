@@ -232,15 +232,18 @@ def getCommonSysts(mass,channel,jets,qqWWfromData,shape,options,suffix,isssactiv
         #nuisances['QCDscale_ggWW_offshell']    = [ ['lnN'], {'ggH_sbi': 1.15, 'ggH_b': 1.15, 'ggH_s': 1.15}]
         nuisances['QCDscale_ggWW_offshell']    = [ ['lnN'], {'ggH_sbi': 1.75158,  'ggH_b': 1.75158,  'ggH_s': 1.75158}]  # using NLO uncertainty for ST recipe
         nuisances['QCDscale_ggWW_offshell1in'] = [ ['lnN'], {'ggH_sbi': 0.796502, 'ggH_b': 0.796502, 'ggH_s': 0.796502}]
+        nuisances['QCDscale_qqWW_offshell0j']  = [ ['lnN'], {'qqH_sbi': 1.412499,  'qqH_b': 1.412499,  'qqH_s': 1.412499}]  # comparison phantom vs powheg
       if jets == 1:
         #nuisances['QCDscale_ggWW_1jet'] = [ ['lnN'], {'ggH_sbi': 1.11, 'ggH_b': 1.11, 'ggH_s': 1.11}]
         nuisances['QCDscale_ggWW_offshell1in'] = [ ['lnN'], {'ggH_sbi': 0.676083, 'ggH_b': 0.676083, 'ggH_s': 0.676083}]
         nuisances['QCDscale_ggWW_offshell2in'] = [ ['lnN'], {'ggH_sbi': 0.996433, 'ggH_b': 0.996433, 'ggH_s': 0.996433}]
+        nuisances['QCDscale_qqWW_offshell1j']  = [ ['lnN'], {'qqH_sbi': 1.035659,  'qqH_b': 1.035659,  'qqH_s': 1.035659}]  # comparison phantom vs powheg
       if jets == 2:
         #nuisances['QCDscale_ggWW_2jet'] = [ ['lnN'], {'ggH_sbi': 1.21, 'ggH_b': 1.21, 'ggH_s': 1.21}]
         nuisances['QCDscale_ggWW_offshell2in'] = [ ['lnN'], {'ggH_sbi': 1.51302, 'ggH_b': 1.51302, 'ggH_s': 1.51302}]
+        nuisances['QCDscale_qqWW_offshell2j']  = [ ['lnN'], {'qqH_sbi': 1.097997,  'qqH_b': 1.097997,  'qqH_s': 1.097997}]  # comparison phantom vs powheg (1-0.9020033 + 1)
 
-      nuisances['QCDscale_qqWW_offshell']    = [ ['lnN'], {'qqH_sbi': 1.12,  'qqH_b': 1.12,  'qqH_s': 1.12}]  # using comparison phantom <-> powheg for central jet veto
+      #nuisances['QCDscale_qqWW_offshell']    = [ ['lnN'], {'qqH_sbi': 1.12,  'qqH_b': 1.12,  'qqH_s': 1.12}]  # using comparison phantom <-> powheg for central jet veto
 
       #QCDscale_ggH     1.75158    -          -      << with "YR" uncertainty --> NNLO ~ 15%
       #QCDscale_ggH1in  0.796502   0.676083   -
