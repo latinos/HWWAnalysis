@@ -799,7 +799,7 @@ class ShapeMixer:
                     # and not double count the downward variation!
                     # that is ---> up   = A + (A-B)/2
                     # that is ---> down = A - (A-B)/2
-                    
+
                     wwGenDifference = mcAtNLOnorm['WWnloNorm'].Clone('histo_WW_Gen_nlo_WW_difference')
                     wwGenDifference.SetTitle('WW Gen_nlo_WW difference temp')
                     wwGenDifference.Add(madWW, -1)
@@ -815,8 +815,8 @@ class ShapeMixer:
                     wwGenDown.SetTitle('WW Gen_nlo_WW Down')
                     wwGenDown.Add(wwGenDifference, -1)
                     self.generators[wwGenDown.GetTitle()] = wwGenDown
-                    
-                    
+
+
 
         mcPOWnorm = {} 
         if 'WW' in self.nominals:

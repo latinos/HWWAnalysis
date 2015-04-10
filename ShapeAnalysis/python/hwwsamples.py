@@ -514,7 +514,10 @@ mcsets = {
         'ggH_s','qqH_s',
         #'ggHminlo',
         # bkgs
-        'WW',
+        #('WW','WWmad'),
+        ('WWlow', 'WWmad'),
+        ('WWhigh','WWmad'),
+        #'WW',
         #'ggWW',
         'VgS','Vg','WJet','Top','VV',
         #'VVV',
@@ -544,7 +547,10 @@ mcsets = {
         'ggH_s','qqH_s',
         #'ggHminlo',
         # bkgs
-        'WW',
+        #('WW','WWmad'),
+        ('WWlow', 'WWmad'),
+        ('WWhigh','WWmad'),
+        #'WW',
         #'ggWW',
         'VgS','Vg','WJet','Top','VV',
           #'VVV',

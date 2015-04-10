@@ -177,6 +177,8 @@ def getCommonSysts(mass,channel,jets,qqWWfromData,shape,options,suffix,isssactiv
     if channel == 'elmu' or channel == 'muel': MCPROC+=['DYMM','DYEE']
     if channel == 'of': MCPROC += ['DYLL']
     if not qqWWfromData: MCPROC+=['WW','ggWW']
+    MCPROC+=['WWlow', 'WWhigh'] # for Higgs width
+
     # -- Luminosity ---------------------
     lumiunc = 1.026
     if '7TeV' in suffix: lumiunc = 1.022
@@ -265,8 +267,8 @@ def getCommonSysts(mass,channel,jets,qqWWfromData,shape,options,suffix,isssactiv
         nuisances['QCDscale_ggH']    = [  ['lnN'], { 'ggH':ggH_jets2[mass]['0'],    'ggH_SM':ggH_jets2[mh_SM2]['0'] }]
         nuisances['QCDscale_ggH1in'] = [  ['lnN'], { 'ggH':ggH_jets2[mass]['1in0'], 'ggH_SM':ggH_jets2[mh_SM2]['1in0'] }]
         if not qqWWfromData:
-            nuisances['QCDscale_WW']    = [ ['lnN'], {'WW': 1.035, 'ggWW': 1.035 }]
-            nuisances['QCDscale_WW1in'] = [ ['lnN'], {'WW': 0.987, 'ggWW': 0.987 }]
+            nuisances['QCDscale_WW']    = [ ['lnN'], {'WWhigh': 1.035,  'WWlow': 1.035,  'WW': 1.035, 'ggWW': 1.035 }]
+            nuisances['QCDscale_WW1in'] = [ ['lnN'], {'WWhigh': 0.987,  'WWlow': 0.987,  'WW': 0.987, 'ggWW': 0.987 }]
             #nuisances['QCDscale_WW']    = [ ['lnN'], {'WW': 1.042, 'ggWW': 1.042 }]  --> new values above from WW paper
             #nuisances['QCDscale_WW1in'] = [ ['lnN'], {'WW': 0.974, 'ggWW': 0.974 }]
             #nuisances['QCDscale_WW1in'] = [ ['lnN'], {'WW': 0.978, 'ggWW': 0.978 }] --> new value!
@@ -281,8 +283,8 @@ def getCommonSysts(mass,channel,jets,qqWWfromData,shape,options,suffix,isssactiv
         nuisances['QCDscale_ggH1in'] = [  ['lnN'], { 'ggH':ggH_jets2[mass]['1in1'], 'ggH_SM':ggH_jets2[mh_SM2]['1in1'] }]
         nuisances['QCDscale_ggH2in'] = [  ['lnN'], { 'ggH':ggH_jets2[mass]['2in1'], 'ggH_SM':ggH_jets2[mh_SM2]['2in1'] }]
         if not qqWWfromData:
-            nuisances['QCDscale_WW1in'] = [ ['lnN'], {'WW': 1.076, 'ggWW': 1.076 }]
-            nuisances['QCDscale_WW2in'] = [ ['lnN'], {'WW': 0.914, 'ggWW': 0.914 }]
+            nuisances['QCDscale_WW1in'] = [ ['lnN'], {'WWhigh': 1.076,  'WWlow': 1.076,  'WW': 1.076, 'ggWW': 1.076 }]
+            nuisances['QCDscale_WW2in'] = [ ['lnN'], {'WWhigh': 0.914,  'WWlow': 0.914,  'WW': 0.914, 'ggWW': 0.914 }]
     elif jets == 2:
         if options.VH:
             nuisances['QCDscale_ggH2in_vh'] = [  ['lnN'], { 'ggH':1.30, 'ggH_SM':1.30 }]
@@ -291,7 +293,8 @@ def getCommonSysts(mass,channel,jets,qqWWfromData,shape,options,suffix,isssactiv
             nuisances['QCDscale_ggH2in_vbf'] = [  ['lnN'], { 'ggH':1.35, 'ggH125':1.35, 'ggH_SM':1.35}]
             #nuisances['QCDscale_ggH2in'] = [  ['lnN'], { 'ggH':ggH_jets[mass]['k2'], 'ggH_SM':ggH_jets[mh_SM]['k2'] }]
         if not qqWWfromData:
-            nuisances['QCDscale_WW2in'] = [ ['lnN'], {'WW': 1.210, 'ggWW': 1.210 }] # reduce by 1/2 because not applicable to vbf
+            nuisances['QCDscale_WW2in']     = [ ['lnN'], {'WWhigh': 1.210,  'WWlow': 1.210,  'WW': 1.210, 'ggWW': 1.210 }] # reduce by 1/2 because not applicable to vbf
+            nuisances['QCDscale_WW2in_ACC'] = [ ['lnN'], {'WWhigh': 1.20,  'WWlow': 1.20 }]
             if not options.VH: 
                #--> now we have Phantom WW+2jets ewk sample, no need this nuisance
                #nuisances['QCDscale_WWvbf'] = [ ['lnN'], {'WW': 1.500 }]

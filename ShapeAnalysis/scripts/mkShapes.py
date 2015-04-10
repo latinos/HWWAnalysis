@@ -177,6 +177,8 @@ class ShapeFactory:
           return ([12, 30, 45,     70,               300],[-1.00,        -0.60, -0.50, -0.40, -0.30, -0.20, -0.10, 0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70,       1.00])
         elif cat in ['0j'] :
           return ([12, 30, 45, 60, 70, 100,          300],[-1.00, -0.70, -0.60, -0.50, -0.40, -0.30, -0.20, -0.10, 0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 1.00])
+          # test:
+          #return ([12,          60, 70, 100,          300],[-1.00, -0.70, -0.60, -0.50, -0.40, -0.30, -0.20, -0.10, 0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 1.00])
         elif cat in ['01j'] :
           return ([12, 30, 45, 60, 70, 100,          300],[-1.00, -0.70, -0.60, -0.50, -0.40, -0.30, -0.20, -0.10, 0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 1.00])
         else :
@@ -803,8 +805,12 @@ class ShapeFactory:
             raise ValueError('The variable\'s and range number of dimensions are mismatching')
 
         print 'var: '+var
-        print 'selection (for WW  as example): '+selections['WW']
-        print 'selection (for ggH as example): '+selections['ggH']
+        if 'WW' in selections : 
+          print 'selection (for WW  as example): '+selections['WW']
+        if 'WWlow' in selections : 
+          print 'selection (for WWlow  as example): '+selections['WWlow']
+        if 'ggH' in selection :
+          print 'selection (for ggH as example): '+selections['ggH']
         #print 'inputs = ', inputs
 
         for process,tree  in inputs.iteritems():
@@ -1156,12 +1162,16 @@ class ShapeFactory:
     def _sampleWeights(self,mass,var,cat,sel,flavor):
         weights = {}
         #print ">>>> sel = ", sel
-        if sel in ['CutWW'] : # only for WW xsec for the time being
+        if sel in ['CutWW','Hwidth'] : # only for WW xsec for the time being and for Higgs width analysis
+        #if sel in ['CutWW'] : # only for WW xsec for the time being
             #print " WW xsec "
             #                                                            pow                      mc@nlo                   MG             NLO x-sec     nnll weight
             #weights['WW']              = self._stdWgt+'*(((dataset==6)*1./999860.)+((dataset==2)*1./539594.)+((dataset==0)*1./1933232.))*5.8123*1000./baseW*nllW'
             #                                                            pow                      mc@nlo                   MG            NNLO x-sec     nnll weight
             weights['WW']              = self._stdWgt+'*(((dataset==6)*1./999860.)+((dataset==2)*1./539594.)+((dataset==0)*1./1933232.))*5.984*1000./baseW*nllW'
+            #
+            weights['WWlow']           = self._stdWgt+'*(mll<70)  * (((dataset==6)*1./999860.)+((dataset==2)*1./539594.)+((dataset==0)*1./1933232.))*5.984*1000./baseW*nllW'
+            weights['WWhigh']          = self._stdWgt+'*(mll>=70) * (((dataset==6)*1./999860.)+((dataset==2)*1./539594.)+((dataset==0)*1./1933232.))*5.984*1000./baseW*nllW'
 
         # tocheck
         weights['WJet']              = self._stdWgt+'*kfW*fakeW*(run!=201191)'
@@ -1300,6 +1310,11 @@ class ShapeFactory:
         #weights['ggH_s']              = self._stdWgt
         weights['ggH_b']              = self._stdWgt+'*2.739*(((njet==0) * (1.0753-48.9352/mWW)) + ((njet==1) * (0.8457+67.5294/mWW)) + ((njet>=2) * (0.7777+161.9353/mWW)))'
 
+        #weights['ggH_sbi']            = self._stdWgt+'*2.739*(((njet==0) * (1.0753-48.9352/mWW)) + ((njet==1) * (0.8457+67.5294/mWW)) + ((njet>=2) * (0.7777+161.9353/mWW)))       * (mll>70)'
+        #weights['ggH_s']              = self._stdWgt+'*2.739*(((njet==0) * (1.0753-48.9352/mWW)) + ((njet==1) * (0.8457+67.5294/mWW)) + ((njet>=2) * (0.7777+161.9353/mWW)))       * (mll>70)'
+        ##weights['ggH_s']              = self._stdWgt
+        #weights['ggH_b']              = self._stdWgt+'*2.739*(((njet==0) * (1.0753-48.9352/mWW)) + ((njet==1) * (0.8457+67.5294/mWW)) + ((njet>=2) * (0.7777+161.9353/mWW)))       * (mll>70)'
+
         #integral = 19.7036
         #integral = 7.19278
         # --> 2.739 as global scale factor
@@ -1391,12 +1406,6 @@ class ShapeFactory:
                                                                           + ((dataset == 256) || (dataset == 266) || (dataset == 271))*(0.7777+161.9353/400)) )'
 
 
-        if ("Hwidth" in sel) :
-          print " Hww width analysis "
-          weights['WW']   = self._stdWgt+'*((njet==0) * (1.10)  + (njet==1) * (1.20) + (njet>=2) * (1.0))'
-          if ("7TeV" in sel) :
-            weights['WW']   = self._stdWgt+'*((njet==0) * (1.08) + (njet==1) * (0.88) + (njet>=2) * (1.0))'
-
 
           # test to suppress cross-feed
           #weights['qqH_sbi'] = weights['qqH_sbi'] + '*(mll>70)'
@@ -1424,7 +1433,8 @@ class ShapeFactory:
 
         if cat in ['2j','2jtche05','2jtche05CJ','2jtche05FJ']:
             #weights['WW']                = self._stdWgt+'*(1+(mjj>500)*(detajj>3.5))'
-            weights['WW']                = self._stdWgt
+            if ("Hwidth" not in sel) :
+              weights['WW']                = self._stdWgt
             #weights['WWewk']             = self._stdWgt+'*(numbLHE==0)'
             weights['WWewk']             = self._stdWgt+'*(abs(jetLHEPartonpid1)!=6 && abs(jetLHEPartonpid2)!=6 && abs(jetLHEPartonpid3)!=6)*(abs(jetLHEPartonpid1)!=5 && abs(jetLHEPartonpid2)!=5 && abs(jetLHEPartonpid3)!=5)'
 
@@ -1474,6 +1484,19 @@ class ShapeFactory:
             weights['ggH-SI']   = self._stdWgt+'*2*kfW*(event%2 == 0)*'+self._muVal
             weights['qqH-SI']   = self._stdWgt+'*2*kfW*(event%2 == 0)*'+self._muVal
             weights['wzttH-SI'] = self._stdWgt+'*2*(event%2 == 0)*'+self._muVal
+
+
+        if ("Hwidth" in sel) :
+          print " Hww width analysis "
+          #weights['WW']   = self._stdWgt+'*((njet==0) * (1.10)  + (njet==1) * (1.20) + (njet>=2) * (1.0))'
+          #weights['WW']   = self._stdWgt+'*((njet==0) * (0.80)  + (njet==1) * (0.80) + (njet>=2) * (0.80))'
+          if ("7TeV" in sel) :
+            #weights['WW']   = self._stdWgt+'*((njet==0) * (0.80)  + (njet==1) * (0.80) + (njet>=2) * (0.80))'
+            weights['WW']   = self._stdWgt+'*((njet==0) * (1.08) + (njet==1) * (0.88) + (njet>=2) * (1.0))'
+            weights['WWlow']    = self._stdWgt+'* (mll<70)  * ((njet==0) * (1.08) + (njet==1) * (0.88) + (njet>=2) * (1.0))'
+            weights['WWhigh']   = self._stdWgt+'* (mll>=70) * ((njet==0) * (1.08) + (njet==1) * (0.88) + (njet>=2) * (1.0))'
+
+
 
         return weights
 
@@ -1852,7 +1875,8 @@ if __name__ == '__main__':
               systByWeight['puW_down'] = 'puWup/puW'
               systByWeight['puW_up']   = 'puWdown/puW'
 
-              if selection in ['CutWW'] :
+              #if selection in ['CutWW'] :
+              if selection in ['CutWW','Hwidth'] :
                 systByWeight['NNLL_down']  = 'nllW_Qdown/nllW'
                 systByWeight['NNLL_up']    = 'nllW_Qup/nllW'
                 systByWeight['NNLLR_down'] = 'nllW_Rdown/nllW'
@@ -1866,7 +1890,7 @@ if __name__ == '__main__':
 
               factory._systByWeight = systByWeight
 
-              processMask = ['ggH', 'ggH_ALT',  'qqH',  'qqH_ALT', 'wzttH', 'ZH', 'WH', 'ttH', 'ggWW', 'Top', 'TopPt0', 'TopPt1', 'TopPt2', 'TopPt3', 'TopPt4', 'TopPt5', 'TopPt6', 'TopPt7', 'TopPt8', 'WW', 'VV', 'VgS', 'Vg', 'DYTT', 'Other', 'VVV', 'WWewk', 'CHITOP-Top' , 'ggH_SM', 'qqH_SM', 'wzttH_SM' , 'WH_SM','ZH_SM','ttH_SM','ggH_sbi','ggH_b','ggH_s','qqH_sbi','qqH_b','qqH_s']
+              processMask = ['ggH', 'ggH_ALT',  'qqH',  'qqH_ALT', 'wzttH', 'ZH', 'WH', 'ttH', 'ggWW', 'Top', 'TopPt0', 'TopPt1', 'TopPt2', 'TopPt3', 'TopPt4', 'TopPt5', 'TopPt6', 'TopPt7', 'TopPt8', 'WW', 'WWlow', 'WWhigh', 'VV', 'VgS', 'Vg', 'DYTT', 'Other', 'VVV', 'WWewk', 'CHITOP-Top' , 'ggH_SM', 'qqH_SM', 'wzttH_SM' , 'WH_SM','ZH_SM','ttH_SM','ggH_sbi','ggH_b','ggH_s','qqH_sbi','qqH_b','qqH_s']
 
               if '2011' in opt.dataset:
                   processMask = ['ggH', 'ggH_ALT', 'qqH', 'qqH_ALT', 'VH' , 'wzttH', 'ZH', 'WH', 'ttH', 'ggWW', 'Top', 'WW', 'VV', 'CHITOP-Top', 'ggH_SM', 'qqH_SM','VH_SM', 'wzttH_SM', 'ZH_SM', 'WH_SM', 'ttH_SM']
@@ -1879,11 +1903,12 @@ if __name__ == '__main__':
               systMasks['interferenceVBF_down'] = ['qqH', 'qqH_ALT']
 
               # NNLL reweight and unceratinty only if WW
-              if selection in ['CutWW'] :
-                systMasks['NNLL_up']    = ['WW']
-                systMasks['NNLL_down']  = ['WW']
-                systMasks['NNLLR_up']   = ['WW']
-                systMasks['NNLLR_down'] = ['WW']
+              #if selection in ['CutWW'] :
+              if selection in ['CutWW','Hwidth'] :
+                systMasks['NNLL_up']    = ['WW','WWlow','WWhigh']
+                systMasks['NNLL_down']  = ['WW','WWlow','WWhigh']
+                systMasks['NNLLR_up']   = ['WW','WWlow','WWhigh']
+                systMasks['NNLLR_down'] = ['WW','WWlow','WWhigh']
 
               # remove selected nuisances for some samples
               processMaskNoDYTT = processMask

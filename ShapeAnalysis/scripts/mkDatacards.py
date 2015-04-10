@@ -777,7 +777,7 @@ if __name__ == '__main__':
     
                 # reshuffle the order
                 #order = [ 'vbfH', 'ggH', 'wzttH', 'ggWW', 'Vg', 'WJet', 'Top', 'WW', 'DYLL', 'VV', 'DYTT', 'Data']
-                order = [ 'ggH','ggH_ALT','qqH','qqH_ALT', 'wzttH','wzttH_ALT', 'WH', 'ZH', 'ttH', 'ggWW', 'VgS', 'Vg', 'WJet', 'Top', 'TopPt0', 'TopPt1', 'TopPt2', 'TopPt3', 'TopPt4', 'TopPt5', 'TopPt6', 'TopPt7', 'TopPt8', 'WW', 'WWewk', 'DYLL', 'VV', 'DYTT', 'DYee', 'DYmm', 'DYee05', 'DYmm05', 'Other', 'VVV', 'Data','ggH_SM', 'qqH_SM', 'WH_SM','ZH_SM' , 'wzttH_SM', 'ggH_sbi', 'ggH_s', 'ggH_b', 'qqH_sbi', 'qqH_s', 'qqH_b' ]
+                order = [ 'ggH','ggH_ALT','qqH','qqH_ALT', 'wzttH','wzttH_ALT', 'WH', 'ZH', 'ttH', 'ggWW', 'VgS', 'Vg', 'WJet', 'Top', 'TopPt0', 'TopPt1', 'TopPt2', 'TopPt3', 'TopPt4', 'TopPt5', 'TopPt6', 'TopPt7', 'TopPt8', 'WW', 'WWlow', 'WWhigh', 'WWewk', 'DYLL', 'VV', 'DYTT', 'DYee', 'DYmm', 'DYee05', 'DYmm05', 'Other', 'VVV', 'Data','ggH_SM', 'qqH_SM', 'WH_SM','ZH_SM' , 'wzttH_SM', 'ggH_sbi', 'ggH_s', 'ggH_b', 'qqH_sbi', 'qqH_s', 'qqH_b' ]
     
    
                 oldYields = yields.copy()
