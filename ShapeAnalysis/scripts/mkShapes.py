@@ -804,6 +804,8 @@ class ShapeFactory:
         if vdim != hdim:
             raise ValueError('The variable\'s and range number of dimensions are mismatching')
 
+        #print 'selections = ', selections
+
         print 'var: '+var
         if 'WW' in selections : 
           print 'selection (for WW  as example): '+selections['WW']
@@ -1491,6 +1493,7 @@ class ShapeFactory:
           #weights['WW']   = self._stdWgt+'*((njet==0) * (1.10)  + (njet==1) * (1.20) + (njet>=2) * (1.0))'
           #weights['WW']   = self._stdWgt+'*((njet==0) * (0.80)  + (njet==1) * (0.80) + (njet>=2) * (0.80))'
           if ("7TeV" in sel) :
+            print " 7 TeV"
             #weights['WW']   = self._stdWgt+'*((njet==0) * (0.80)  + (njet==1) * (0.80) + (njet>=2) * (0.80))'
             weights['WW']   = self._stdWgt+'*((njet==0) * (1.08) + (njet==1) * (0.88) + (njet>=2) * (1.0))'
             weights['WWlow']    = self._stdWgt+'* (mll<70)  * ((njet==0) * (1.08) + (njet==1) * (0.88) + (njet>=2) * (1.0))'
@@ -1893,7 +1896,7 @@ if __name__ == '__main__':
               processMask = ['ggH', 'ggH_ALT',  'qqH',  'qqH_ALT', 'wzttH', 'ZH', 'WH', 'ttH', 'ggWW', 'Top', 'TopPt0', 'TopPt1', 'TopPt2', 'TopPt3', 'TopPt4', 'TopPt5', 'TopPt6', 'TopPt7', 'TopPt8', 'WW', 'WWlow', 'WWhigh', 'VV', 'VgS', 'Vg', 'DYTT', 'Other', 'VVV', 'WWewk', 'CHITOP-Top' , 'ggH_SM', 'qqH_SM', 'wzttH_SM' , 'WH_SM','ZH_SM','ttH_SM','ggH_sbi','ggH_b','ggH_s','qqH_sbi','qqH_b','qqH_s']
 
               if '2011' in opt.dataset:
-                  processMask = ['ggH', 'ggH_ALT', 'qqH', 'qqH_ALT', 'VH' , 'wzttH', 'ZH', 'WH', 'ttH', 'ggWW', 'Top', 'WW', 'VV', 'CHITOP-Top', 'ggH_SM', 'qqH_SM','VH_SM', 'wzttH_SM', 'ZH_SM', 'WH_SM', 'ttH_SM']
+                  processMask = ['ggH', 'ggH_ALT', 'qqH', 'qqH_ALT', 'VH' , 'wzttH', 'ZH', 'WH', 'ttH', 'ggWW', 'Top', 'WW', 'WWlow', 'WWhigh', 'VV', 'CHITOP-Top', 'ggH_SM', 'qqH_SM','VH_SM', 'wzttH_SM', 'ZH_SM', 'WH_SM', 'ttH_SM']
 
               systMasks = dict([(s,processMask[:]) for s in systematics])
               # interference is only on signal samples:
@@ -1904,7 +1907,7 @@ if __name__ == '__main__':
 
               # NNLL reweight and unceratinty only if WW
               #if selection in ['CutWW'] :
-              if selection in ['CutWW','Hwidth'] :
+              if selection in ['CutWW','Hwidth'] and '2011' not in opt.dataset:
                 systMasks['NNLL_up']    = ['WW','WWlow','WWhigh']
                 systMasks['NNLL_down']  = ['WW','WWlow','WWhigh']
                 systMasks['NNLLR_up']   = ['WW','WWlow','WWhigh']
