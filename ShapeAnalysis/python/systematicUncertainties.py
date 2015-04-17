@@ -178,6 +178,7 @@ def getCommonSysts(mass,channel,jets,qqWWfromData,shape,options,suffix,isssactiv
     if channel == 'of': MCPROC += ['DYLL']
     if not qqWWfromData: MCPROC+=['WW','ggWW']
     MCPROC+=['WWlow', 'WWhigh'] # for Higgs width
+    MCPROC+=['WW1', 'WW2', 'WW3', 'WW4', 'WW5', 'WW6'] # for Higgs width
 
     # -- Luminosity ---------------------
     lumiunc = 1.026
@@ -267,8 +268,8 @@ def getCommonSysts(mass,channel,jets,qqWWfromData,shape,options,suffix,isssactiv
         nuisances['QCDscale_ggH']    = [  ['lnN'], { 'ggH':ggH_jets2[mass]['0'],    'ggH_SM':ggH_jets2[mh_SM2]['0'] }]
         nuisances['QCDscale_ggH1in'] = [  ['lnN'], { 'ggH':ggH_jets2[mass]['1in0'], 'ggH_SM':ggH_jets2[mh_SM2]['1in0'] }]
         if not qqWWfromData:
-            nuisances['QCDscale_WW']    = [ ['lnN'], {'WWhigh': 1.035,  'WWlow': 1.035,  'WW': 1.035, 'ggWW': 1.035 }]
-            nuisances['QCDscale_WW1in'] = [ ['lnN'], {'WWhigh': 0.987,  'WWlow': 0.987,  'WW': 0.987, 'ggWW': 0.987 }]
+            nuisances['QCDscale_WW']    = [ ['lnN'], {'WWhigh': 1.035,  'WWlow': 1.035,  'WW': 1.035, 'ggWW': 1.035 ,  'WW1': 1.035,  'WW2': 1.035,  'WW3': 1.035,  'WW4': 1.035,  'WW5': 1.035,  'WW6': 1.035}]
+            nuisances['QCDscale_WW1in'] = [ ['lnN'], {'WWhigh': 0.987,  'WWlow': 0.987,  'WW': 0.987, 'ggWW': 0.987 ,  'WW1': 0.987,  'WW2': 0.987,  'WW3': 0.987,  'WW4': 0.987,  'WW5': 0.987,  'WW6': 0.987}]
             #nuisances['QCDscale_WW']    = [ ['lnN'], {'WW': 1.042, 'ggWW': 1.042 }]  --> new values above from WW paper
             #nuisances['QCDscale_WW1in'] = [ ['lnN'], {'WW': 0.974, 'ggWW': 0.974 }]
             #nuisances['QCDscale_WW1in'] = [ ['lnN'], {'WW': 0.978, 'ggWW': 0.978 }] --> new value!

@@ -956,6 +956,21 @@ def massSelections(mass):
                           ')'
 
 
+    sel['HwidthWWcontrolRegion-selection'] = sel['Hwidth-level']+ ' && (pt2>20) && ( (njet==0 * ( (mll<70 && pt2<40 && ptll>45) || (mll>=70 && pt2>20 && pt1>20)  )) || '  + \
+                          ' ((njet==1) * ( (mll<70 && pt2<40 && ptll>45) || (mll>=70 && pt2>20 && pt1>20)  )) || ' +  \
+                          ' ((njet>=2) * ( ptll>45 && (njet>=2 && njet<=3 && (jetpt3<=30 || !(jetpt3 > 30 && (  (jeteta1-jeteta3 > 0 && jeteta2-jeteta3 < 0) || (jeteta2-jeteta3 > 0 && jeteta1-jeteta3 < 0)))))   && abs(eta1 - (jeteta1+jeteta2)/2)/detajj < 0.5 && abs(eta2 - (jeteta1+jeteta2)/2)/detajj < 0.5      && detajj>2.5     && mjj>500 && ' + \
+                          '  (   (mll<70 && pt2<40) || (mll>=70 && pt2>20 && pt1>20)  )  )) '  + \
+                          ')'
+
+    sel['HwidthWWcontrolRegionHighMllRemoved-selection'] = sel['Hwidth-level']+ ' && (pt2>20) && (mll<100)  && ( (njet==0 * ( (mll<70 && pt2<40 && ptll>45) || (mll>=70 && pt2>20 && pt1>20)  )) || '  + \
+                          ' ((njet==1) * ( (mll<70 && pt2<40 && ptll>45) || (mll>=70 && pt2>20 && pt1>20)  )) || ' +  \
+                          ' ((njet>=2) * ( ptll>45 && (njet>=2 && njet<=3 && (jetpt3<=30 || !(jetpt3 > 30 && (  (jeteta1-jeteta3 > 0 && jeteta2-jeteta3 < 0) || (jeteta2-jeteta3 > 0 && jeteta1-jeteta3 < 0)))))   && abs(eta1 - (jeteta1+jeteta2)/2)/detajj < 0.5 && abs(eta2 - (jeteta1+jeteta2)/2)/detajj < 0.5      && detajj>2.5     && mjj>500 && ' + \
+                          '  (   (mll<70 && pt2<40) || (mll>=70 && pt2>20 && pt1>20)  )  )) '  + \
+                          ')'
+
+
+
+
     #sel['Hwidth-selection'] = sel['Hwidth-level']+ ' && ( (njet==0 * ( (HwidthMVAggH>=0.0 && pt2>20) || (HwidthMVAggH<0.0 && mth>60 && mth<120 && ptll>45 && pt2<40)  )) || '  + \
                           #' ((njet==1) * ( (HwidthMVAggH>=0.0 && pt2>20) || (HwidthMVAggH<0.0 && mth>60 && mth<120 && ptll>45 && pt2<40)  )) || ' +  \
                           #' ((njet>=2) * ( ptll>45 && (njet>=2 && njet<=3 && (jetpt3<=30 || !(jetpt3 > 30 && (  (jeteta1-jeteta3 > 0 && jeteta2-jeteta3 < 0) || (jeteta2-jeteta3 > 0 && jeteta1-jeteta3 < 0)))))   && abs(eta1 - (jeteta1+jeteta2)/2)/detajj < 0.5 && abs(eta2 - (jeteta1+jeteta2)/2)/detajj < 0.5      && detajj>2.5     && mjj>500 && ' + \

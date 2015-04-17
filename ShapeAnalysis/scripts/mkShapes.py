@@ -811,6 +811,10 @@ class ShapeFactory:
           print 'selection (for WW  as example): '+selections['WW']
         if 'WWlow' in selections : 
           print 'selection (for WWlow  as example): '+selections['WWlow']
+
+        if 'WW1' in selections : 
+          print 'selection (for WW1  as example): '+selections['WW1']
+
         if 'ggH' in selection :
           print 'selection (for ggH as example): '+selections['ggH']
         #print 'inputs = ', inputs
@@ -821,7 +825,7 @@ class ShapeFactory:
             # new histogram
             shapeName = 'histo_'+process
 #             hstr = shapeName+hproto
-            
+
             outFile.cd()
 
             # prepare a dummy to fill
@@ -1164,7 +1168,7 @@ class ShapeFactory:
     def _sampleWeights(self,mass,var,cat,sel,flavor):
         weights = {}
         #print ">>>> sel = ", sel
-        if sel in ['CutWW','Hwidth'] : # only for WW xsec for the time being and for Higgs width analysis
+        if sel in ['CutWW','Hwidth','HwidthWWcontrolRegion','HwidthWWcontrolRegionHighMllRemoved'] : # only for WW xsec for the time being and for Higgs width analysis
         #if sel in ['CutWW'] : # only for WW xsec for the time being
             #print " WW xsec "
             #                                                            pow                      mc@nlo                   MG             NLO x-sec     nnll weight
@@ -1174,6 +1178,14 @@ class ShapeFactory:
             #
             weights['WWlow']           = self._stdWgt+'*(mll<70)  * (((dataset==6)*1./999860.)+((dataset==2)*1./539594.)+((dataset==0)*1./1933232.))*5.984*1000./baseW*nllW'
             weights['WWhigh']          = self._stdWgt+'*(mll>=70) * (((dataset==6)*1./999860.)+((dataset==2)*1./539594.)+((dataset==0)*1./1933232.))*5.984*1000./baseW*nllW'
+
+            weights['WW1']      = self._stdWgt+'*(mll>=12 && mll<30)  * (((dataset==6)*1./999860.)+((dataset==2)*1./539594.)+((dataset==0)*1./1933232.))*5.984*1000./baseW*nllW'
+            weights['WW2']      = self._stdWgt+'*(mll>=30 && mll<45)  * (((dataset==6)*1./999860.)+((dataset==2)*1./539594.)+((dataset==0)*1./1933232.))*5.984*1000./baseW*nllW'
+            weights['WW3']      = self._stdWgt+'*(mll>=45 && mll<60)  * (((dataset==6)*1./999860.)+((dataset==2)*1./539594.)+((dataset==0)*1./1933232.))*5.984*1000./baseW*nllW'
+            weights['WW4']      = self._stdWgt+'*(mll>=60 && mll<70)  * (((dataset==6)*1./999860.)+((dataset==2)*1./539594.)+((dataset==0)*1./1933232.))*5.984*1000./baseW*nllW'
+            weights['WW5']      = self._stdWgt+'*(mll>=70 && mll<100) * (((dataset==6)*1./999860.)+((dataset==2)*1./539594.)+((dataset==0)*1./1933232.))*5.984*1000./baseW*nllW'
+            weights['WW6']      = self._stdWgt+'*(mll>=100         )  * (((dataset==6)*1./999860.)+((dataset==2)*1./539594.)+((dataset==0)*1./1933232.))*5.984*1000./baseW*nllW'
+
 
         # tocheck
         weights['WJet']              = self._stdWgt+'*kfW*fakeW*(run!=201191)'
@@ -1499,7 +1511,12 @@ class ShapeFactory:
             weights['WWlow']    = self._stdWgt+'* (mll<70)  * ((njet==0) * (1.08) + (njet==1) * (0.88) + (njet>=2) * (1.0))'
             weights['WWhigh']   = self._stdWgt+'* (mll>=70) * ((njet==0) * (1.08) + (njet==1) * (0.88) + (njet>=2) * (1.0))'
 
-
+            weights['WW1']      = self._stdWgt+'*(mll>=12 && mll<30)       * ((njet==0) * (1.08) + (njet==1) * (0.88) + (njet>=2) * (1.0))'
+            weights['WW2']      = self._stdWgt+'*(mll>=30 && mll<45)       * ((njet==0) * (1.08) + (njet==1) * (0.88) + (njet>=2) * (1.0))'
+            weights['WW3']      = self._stdWgt+'*(mll>=45 && mll<60)       * ((njet==0) * (1.08) + (njet==1) * (0.88) + (njet>=2) * (1.0))'
+            weights['WW4']      = self._stdWgt+'*(mll>=60 && mll<70)       * ((njet==0) * (1.08) + (njet==1) * (0.88) + (njet>=2) * (1.0))'
+            weights['WW5']      = self._stdWgt+'*(mll>=70 && mll<100)      * ((njet==0) * (1.08) + (njet==1) * (0.88) + (njet>=2) * (1.0))'
+            weights['WW6']      = self._stdWgt+'*(mll>=100         )       * ((njet==0) * (1.08) + (njet==1) * (0.88) + (njet>=2) * (1.0))'
 
         return weights
 
@@ -1838,6 +1855,8 @@ if __name__ == '__main__':
                   ('NNLL_down'               , 'nnllDown'),
                   ('NNLLR_up'                , 'nnllRUp'),
                   ('NNLLR_down'              , 'nnllRDown'),
+                  ('WWmodel_up'              , 'WWmodelUp'),
+                  ('WWmodel_down'            , 'WWmodelDown'),
               ])
 
 
@@ -1879,7 +1898,7 @@ if __name__ == '__main__':
               systByWeight['puW_up']   = 'puWdown/puW'
 
               #if selection in ['CutWW'] :
-              if selection in ['CutWW','Hwidth'] :
+              if selection in ['CutWW','Hwidth','HwidthWWcontrolRegion','HwidthWWcontrolRegionHighMllRemoved'] :
                 systByWeight['NNLL_down']  = 'nllW_Qdown/nllW'
                 systByWeight['NNLL_up']    = 'nllW_Qup/nllW'
                 systByWeight['NNLLR_down'] = 'nllW_Rdown/nllW'
@@ -1890,13 +1909,21 @@ if __name__ == '__main__':
                 systematics.pop('NNLLR_down')
                 systematics.pop('NNLLR_up')
 
+              if selection in ['Hwidth','HwidthWWcontrolRegion','HwidthWWcontrolRegionHighMllRemoved'] :
+                systByWeight['WWmodel_up']   = '(1.27 - 0.14 * dphill)'
+                systByWeight['WWmodel_down'] = '(1)'
+              else :
+                systematics.pop('WWmodel_up')
+                systematics.pop('WWmodel_down')
+
+
 
               factory._systByWeight = systByWeight
 
-              processMask = ['ggH', 'ggH_ALT',  'qqH',  'qqH_ALT', 'wzttH', 'ZH', 'WH', 'ttH', 'ggWW', 'Top', 'TopPt0', 'TopPt1', 'TopPt2', 'TopPt3', 'TopPt4', 'TopPt5', 'TopPt6', 'TopPt7', 'TopPt8', 'WW', 'WWlow', 'WWhigh', 'VV', 'VgS', 'Vg', 'DYTT', 'Other', 'VVV', 'WWewk', 'CHITOP-Top' , 'ggH_SM', 'qqH_SM', 'wzttH_SM' , 'WH_SM','ZH_SM','ttH_SM','ggH_sbi','ggH_b','ggH_s','qqH_sbi','qqH_b','qqH_s']
+              processMask = ['ggH', 'ggH_ALT',  'qqH',  'qqH_ALT', 'wzttH', 'ZH', 'WH', 'ttH', 'ggWW', 'Top', 'TopPt0', 'TopPt1', 'TopPt2', 'TopPt3', 'TopPt4', 'TopPt5', 'TopPt6', 'TopPt7', 'TopPt8', 'WW', 'WWlow', 'WWhigh', 'WW1', 'WW2', 'WW3', 'WW4', 'WW5', 'WW6', 'VV', 'VgS', 'Vg', 'DYTT', 'Other', 'VVV', 'WWewk', 'CHITOP-Top' , 'ggH_SM', 'qqH_SM', 'wzttH_SM' , 'WH_SM','ZH_SM','ttH_SM','ggH_sbi','ggH_b','ggH_s','qqH_sbi','qqH_b','qqH_s']
 
               if '2011' in opt.dataset:
-                  processMask = ['ggH', 'ggH_ALT', 'qqH', 'qqH_ALT', 'VH' , 'wzttH', 'ZH', 'WH', 'ttH', 'ggWW', 'Top', 'WW', 'WWlow', 'WWhigh', 'VV', 'CHITOP-Top', 'ggH_SM', 'qqH_SM','VH_SM', 'wzttH_SM', 'ZH_SM', 'WH_SM', 'ttH_SM']
+                  processMask = ['ggH', 'ggH_ALT', 'qqH', 'qqH_ALT', 'VH' , 'wzttH', 'ZH', 'WH', 'ttH', 'ggWW', 'Top', 'WW', 'WWlow', 'WWhigh', 'WW1', 'WW2', 'WW3', 'WW4', 'WW5', 'WW6', 'VV', 'CHITOP-Top', 'ggH_SM', 'qqH_SM','VH_SM', 'wzttH_SM', 'ZH_SM', 'WH_SM', 'ttH_SM']
 
               systMasks = dict([(s,processMask[:]) for s in systematics])
               # interference is only on signal samples:
@@ -1907,11 +1934,17 @@ if __name__ == '__main__':
 
               # NNLL reweight and unceratinty only if WW
               #if selection in ['CutWW'] :
-              if selection in ['CutWW','Hwidth'] and '2011' not in opt.dataset:
-                systMasks['NNLL_up']    = ['WW','WWlow','WWhigh']
-                systMasks['NNLL_down']  = ['WW','WWlow','WWhigh']
-                systMasks['NNLLR_up']   = ['WW','WWlow','WWhigh']
-                systMasks['NNLLR_down'] = ['WW','WWlow','WWhigh']
+              if selection in ['CutWW','Hwidth','HwidthWWcontrolRegion','HwidthWWcontrolRegionHighMllRemoved'] and '2011' not in opt.dataset:
+                systMasks['NNLL_up']    = ['WW','WWlow','WWhigh','WW1', 'WW2', 'WW3', 'WW4', 'WW5', 'WW6']
+                systMasks['NNLL_down']  = ['WW','WWlow','WWhigh','WW1', 'WW2', 'WW3', 'WW4', 'WW5', 'WW6']
+                systMasks['NNLLR_up']   = ['WW','WWlow','WWhigh','WW1', 'WW2', 'WW3', 'WW4', 'WW5', 'WW6']
+                systMasks['NNLLR_down'] = ['WW','WWlow','WWhigh','WW1', 'WW2', 'WW3', 'WW4', 'WW5', 'WW6']
+
+              if selection in ['Hwidth','HwidthWWcontrolRegion','HwidthWWcontrolRegionHighMllRemoved'] and '2011' not in opt.dataset:
+                systMasks['WWmodel_up']   = ['WW','WWlow','WWhigh','WW1', 'WW2', 'WW3', 'WW4', 'WW5', 'WW6']
+                systMasks['WWmodel_down'] = ['WW','WWlow','WWhigh','WW1', 'WW2', 'WW3', 'WW4', 'WW5', 'WW6']
+
+
 
               # remove selected nuisances for some samples
               processMaskNoDYTT = processMask

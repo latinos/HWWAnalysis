@@ -506,7 +506,7 @@ mcsets = {
         'WW','ggWW','VgS','Vg','WJet','ttbar','tW','VV','DYTT','DYLL',
    ],
 
-   'Hwidth_01j' : [
+   'Hwidth_0j_controlPlots' : [
         #signals
         'ggH','qqH',
         'ggH_sbi','qqH_sbi',
@@ -515,8 +515,76 @@ mcsets = {
         #'ggHminlo',
         # bkgs
         #('WW','WWmad'),
-        ('WWlow', 'WWmad'),
-        ('WWhigh','WWmad'),
+        ('WW1', 'WWmad'),
+        ('WW2', 'WWmad'),
+        ('WW3', 'WWmad'),
+        ('WW4', 'WWmad'),
+        ('WW5', 'WWmad'),
+        ('WW6', 'WWmad'),
+        #'WW',
+        #'ggWW',
+        'VgS','Vg','WJet','Top','VV',
+        #'VVV',
+        ('VVV','VVVnoEWK'),
+        'DYTT','WWnlo','WWnloUp','WWnloDown',
+        ('DYLL','ggH'),
+        # systematics
+        'WJetFakeRate-nominal',
+        ('WJetFakeRate-eUp', 'WJetFakeRate-nominal'),
+        ('WJetFakeRate-eDn', 'WJetFakeRate-nominal'),
+        ('WJetFakeRate-mUp', 'WJetFakeRate-nominal'),
+        ('WJetFakeRate-mDn', 'WJetFakeRate-nominal'),
+        ('TopTW',   'Top'),
+        ('TopCtrl', 'Top'),
+        # templates
+        'VgS-template','Vg-template',
+        # 0j1j specific
+        #('DYLL-template',    'DYLL-template-0j1j'),              #    A   <-   sorgente
+        #('DYLL-templatesyst','DYLL-templatesyst-0j1j')           #    mkmerged vuole "-template"
+    ],
+
+   'Hwidth_01j_WWUnique' : [
+        #signals
+        'ggH','qqH',
+        'ggH_sbi','qqH_sbi',
+        'ggH_b','qqH_b',
+        'ggH_s','qqH_s',
+        #'ggHminlo',
+        # bkgs
+        ('WW','WWmad'),
+        #'WW',
+        #'ggWW',
+        'VgS','Vg','WJet','Top','VV',
+        #'VVV',
+        ('VVV','VVVnoEWK'),
+        'DYTT','WWnlo','WWnloUp','WWnloDown',
+        ('DYLL','ggH'),
+        # systematics
+        'WJetFakeRate-nominal',
+        ('WJetFakeRate-eUp', 'WJetFakeRate-nominal'),
+        ('WJetFakeRate-eDn', 'WJetFakeRate-nominal'),
+        ('WJetFakeRate-mUp', 'WJetFakeRate-nominal'),
+        ('WJetFakeRate-mDn', 'WJetFakeRate-nominal'),
+        ('TopTW',   'Top'),
+        ('TopCtrl', 'Top'),
+        # templates
+        'VgS-template','Vg-template',
+        # 0j1j specific
+        #('DYLL-template',    'DYLL-template-0j1j'),              #    A   <-   sorgente
+        #('DYLL-templatesyst','DYLL-templatesyst-0j1j')           #    mkmerged vuole "-template"
+    ],
+
+   'Hwidth_01j' : [
+        #signals
+        'ggH','qqH',
+        'ggH_sbi','qqH_sbi',
+        'ggH_b','qqH_b',
+        'ggH_s','qqH_s',
+        #'ggHminlo',
+        # bkgs
+        ('WW','WWmad'),
+        #('WWlow', 'WWmad'),
+        #('WWhigh','WWmad'),
         #'WW',
         #'ggWW',
         'VgS','Vg','WJet','Top','VV',
