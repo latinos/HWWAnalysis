@@ -1855,8 +1855,10 @@ if __name__ == '__main__':
                   ('NNLL_down'               , 'nnllDown'),
                   ('NNLLR_up'                , 'nnllRUp'),
                   ('NNLLR_down'              , 'nnllRDown'),
-                  ('WWmodel_up'              , 'WWmodelUp'),
-                  ('WWmodel_down'            , 'WWmodelDown'),
+                  ('WWmodel_up'              , 'wwmodelUp'),
+                  ('WWmodel_down'            , 'wwmodelDown'),
+                  ('WWewkCorr_up'            , 'wwewkcorrUp'),
+                  ('WWewkCorr_down'          , 'wwewkcorrDown'),
               ])
 
 
@@ -1916,6 +1918,14 @@ if __name__ == '__main__':
                 systematics.pop('WWmodel_up')
                 systematics.pop('WWmodel_down')
 
+              # WW ewk corrections
+              if selection in ['Hwidth','HwidthWWcontrolRegion','HwidthWWcontrolRegionHighMllRemoved'] :
+                systByWeight['WWewkCorr_up']   = '(ewkW)'
+                systByWeight['WWewkCorr_down'] = '(1)'
+              else :
+                systematics.pop('WWewkCorr_up')
+                systematics.pop('WWewkCorr_down')
+
 
 
               factory._systByWeight = systByWeight
@@ -1944,6 +1954,9 @@ if __name__ == '__main__':
                 systMasks['WWmodel_up']   = ['WW','WWlow','WWhigh','WW1', 'WW2', 'WW3', 'WW4', 'WW5', 'WW6']
                 systMasks['WWmodel_down'] = ['WW','WWlow','WWhigh','WW1', 'WW2', 'WW3', 'WW4', 'WW5', 'WW6']
 
+              if selection in ['Hwidth','HwidthWWcontrolRegion','HwidthWWcontrolRegionHighMllRemoved'] and '2011' not in opt.dataset:
+                systMasks['WWewkCorr_up']   = ['WW','WWlow','WWhigh','WW1', 'WW2', 'WW3', 'WW4', 'WW5', 'WW6']
+                systMasks['WWewkCorr_down'] = ['WW','WWlow','WWhigh','WW1', 'WW2', 'WW3', 'WW4', 'WW5', 'WW6']
 
 
               # remove selected nuisances for some samples
