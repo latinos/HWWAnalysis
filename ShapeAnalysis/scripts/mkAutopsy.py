@@ -749,7 +749,7 @@ def fitAndPlot( dcpath, opts ):
 
     # 1. load the datacard
     dcfile = open(dcpath,'r')
-    
+
     class DCOptions: pass
     options = DCOptions()
     options.stat = False
@@ -776,27 +776,54 @@ def fitAndPlot( dcpath, opts ):
 
 #     if len(DC.bins) != 1:
 #         raise ValueError('Only 1 bin datacards supported at the moment: '+', '.join(DC.bins))
-        
+
 
     # 2. convert to ws
     wspath = os.path.splitext(dcpath)[0]+'_workspace.root'
     logging.debug('Working with workspace %s',wspath)
+    print " wspath = ", wspath
 
     mkws = (not os.path.exists(wspath) or
             os.path.getmtime(wspath) < os.path.getmtime(dcpath) or
             opts.clean)
+
+    print " mkws = ", mkws
+    print "   not os.path.exists(wspath) = ", not os.path.exists(wspath)
+    if os.path.exists(wspath) : 
+      print "   os.path.getmtime(wspath) = ", os.path.getmtime(wspath)
+      print "   os.path.getmtime(dcpath) = ", os.path.getmtime(dcpath)
+    print "   opts.clean = ", opts.clean
+
+
     if mkws:
         # workspace + parameters = shapes
         print 'Making the workspace...',
         sys.stdout.flush()
-        os.system( 'text2workspace.py %s -o %s' % (dcpath,wspath) )
+
+        if opts.combineFolder != None :
+          print " will run text2workspace in :", opts.combineFolder
+          curentDir = os.getcwd()
+          os.chdir( '%s' % (opts.combineFolder) )
+          #os.system( 'cd %s ' % (opts.combineFolder) )
+    #os.getenv('CMSSW_BASE')
+          print "( 'cd %s ' % (opts.combineFolder) ) = ", ( 'cd %s ' % (opts.combineFolder) )
+          print " pwd = "
+          os.system( 'pwd' )
+          #os.system( 'cmsenv' )
+          os.system( 'eval `scramv1 runtime -sh`' )
+          #os.system( 'cd - ' )
+          os.chdir( curentDir )
+
+          print " opts.modelName = ", opts.modelName
+
+        os.system( 'text2workspace.py %s -o %s %s' % (dcpath,wspath,opts.modelName) )
         print 'done.'
 
     ROOT.gSystem.Load('libHiggsAnalysisCombinedLimit')
     wsfile = ROOT.TFile.Open(wspath)
     if not wsfile.__nonzero__():
         raise IOError('Could not open '+wspath)
-    
+
     w = wsfile.Get('w')
     w.saveSnapshot('clean',w.allVars())
 
@@ -1045,17 +1072,20 @@ def printshapes( shapes, errs, mode, opts, bin, signals, processes ):
 #---
 def addOptions( parser ):
     
-    parser.add_option('-o' , '--output'    , dest='output'         , help='Output directory (%default)'     , default=None)
-    parser.add_option('-x' , '--xlabel'    , dest='xlabel'         , help='X-axis label'                    , default='')
-    parser.add_option('-r' , '--ratio'     , dest='ratio'          , help='Plot the data/mc ration'         , default=True       , action='store_false')
-    parser.add_option('--errormode'        , dest='errmode'        , help='Algo to calculate the errors'    , default='errorband')
-    parser.add_option('--nofit'            , dest='fit'            , help='Don\'t fit'                      , default=True       , action='store_false')
-    parser.add_option('--clean'            , dest='clean'          , help='Clean the ws (regenerate)'       , default=False      , action='store_true')
-    parser.add_option('--dump'             , dest='dump'           , help='Dump the histograms to file'     , default=None)
-    parser.add_option('--tmpdir'           , dest='tmpdir'         , help='Temporary directory'             , default=None)
-    parser.add_option('--usefit'           , dest='usefit'         , help='Do not fit, use an external file', default=None)
-    parser.add_option('--stretch'          , dest='stretch'        , help='Stretch'                         , default=None, type='float')
-    parser.add_option('--injectionSignal'  , dest='injectionSignal', help='Signal injection'                , default=False     , action='store_true')
+    parser.add_option('-o' , '--output'    , dest='output'          , help='Output directory (%default)'     , default=None)
+    parser.add_option('-x' , '--xlabel'    , dest='xlabel'          , help='X-axis label'                    , default='')
+    parser.add_option('-r' , '--ratio'     , dest='ratio'           , help='Plot the data/mc ration'         , default=True       , action='store_false')
+    parser.add_option('--errormode'        , dest='errmode'         , help='Algo to calculate the errors'    , default='errorband')
+    parser.add_option('--nofit'            , dest='fit'             , help='Don\'t fit'                      , default=True       , action='store_false')
+    parser.add_option('--clean'            , dest='clean'           , help='Clean the ws (regenerate)'       , default=False      , action='store_true')
+    parser.add_option('--dump'             , dest='dump'            , help='Dump the histograms to file'     , default=None)
+    parser.add_option('--tmpdir'           , dest='tmpdir'          , help='Temporary directory'             , default=None)
+    parser.add_option('--usefit'           , dest='usefit'          , help='Do not fit, use an external file', default=None)
+    parser.add_option('--stretch'          , dest='stretch'         , help='Stretch'                         , default=None, type='float')
+    parser.add_option('--injectionSignal'  , dest='injectionSignal' , help='Signal injection'                , default=False     , action='store_true')
+    parser.add_option('--modelName'        , dest='modelName'       , help='Model name: default is mu style' , default=None)
+    parser.add_option('--combineFolder'    , dest='combineFolder'   , help='Combine directory, needed for specific cases of models' , default=None)
+
 
     hwwtools.addOptions(parser)
     hwwtools.loadOptDefaults(parser)
@@ -1092,7 +1122,9 @@ if __name__ == '__main__':
     except IndexError:
         parser.print_usage()
         sys.exit(0)
-    
+
+    print " dcpath = ", dcpath
+
     try:
         fitAndPlot(dcpath, opt)
     except SystemExit:

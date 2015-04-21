@@ -211,7 +211,7 @@ class ShapeLoader:
                 sUp = set(ups[effect])
                 sDown = set(downs[effect])
                 raise RuntimeError('Some systematics shapes for '+effect+' not found in up and down variation: \n '+', '.join( (sUp | sDown) - ( sUp & sDown ) ))
-        
+
         # all checks out, save only one
         self._effects = ups
 

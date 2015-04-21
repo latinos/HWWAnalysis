@@ -590,7 +590,9 @@ mcsets = {
         'VgS','Vg','WJet','Top','VV',
         #'VVV',
         ('VVV','VVVnoEWK'),
-        'DYTT','WWnlo','WWnloUp','WWnloDown',
+        'DYTT',
+        #'WWnlo',  ## --> remove also this, because you need to compare with the same with nnlo accuracy, and they are similar
+        #'WWnloUp','WWnloDown',  ##--> no scale up/down because already included
         ('DYLL','ggH'),
         # systematics
         'WJetFakeRate-nominal',

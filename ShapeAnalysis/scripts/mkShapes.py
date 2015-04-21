@@ -1911,7 +1911,8 @@ if __name__ == '__main__':
                 systematics.pop('NNLLR_down')
                 systematics.pop('NNLLR_up')
 
-              if selection in ['Hwidth','HwidthWWcontrolRegion','HwidthWWcontrolRegionHighMllRemoved'] :
+              if selection in ['NOSELECTIONS'] :
+              #if selection in ['Hwidth','HwidthWWcontrolRegion','HwidthWWcontrolRegionHighMllRemoved'] :
                 systByWeight['WWmodel_up']   = '(1.27 - 0.14 * dphill)'
                 systByWeight['WWmodel_down'] = '(1)'
               else :
@@ -1950,7 +1951,7 @@ if __name__ == '__main__':
                 systMasks['NNLLR_up']   = ['WW','WWlow','WWhigh','WW1', 'WW2', 'WW3', 'WW4', 'WW5', 'WW6']
                 systMasks['NNLLR_down'] = ['WW','WWlow','WWhigh','WW1', 'WW2', 'WW3', 'WW4', 'WW5', 'WW6']
 
-              if selection in ['Hwidth','HwidthWWcontrolRegion','HwidthWWcontrolRegionHighMllRemoved'] and '2011' not in opt.dataset:
+              if selection in ['Hwidth','HwidthWWcontrolRegion','HwidthWWcontrolRegionHighMllRemoved'] :
                 systMasks['WWmodel_up']   = ['WW','WWlow','WWhigh','WW1', 'WW2', 'WW3', 'WW4', 'WW5', 'WW6']
                 systMasks['WWmodel_down'] = ['WW','WWlow','WWhigh','WW1', 'WW2', 'WW3', 'WW4', 'WW5', 'WW6']
 
